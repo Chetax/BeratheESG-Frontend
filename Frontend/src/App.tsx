@@ -1,12 +1,12 @@
-import React from 'react';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-   Hello World
-    </div>
-  );
-}
+import  { Route, Routes } from 'react-router-dom';
+import Signup from './Component/SignUp/SignUp';
+const App = () => (
+  <div className='App'>
+  <Routes>
+<Route path='/signup' element={<Signup/>}></Route>
+  </Routes>
+  </div>
+);
 
 export default App;

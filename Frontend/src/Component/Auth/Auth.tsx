@@ -8,7 +8,7 @@ import { Form, Button, Input } from 'antd';
 import { Col, Image, Row, Layout, Typography } from 'antd';
 import Google from './Images/google.png';
 import X from './Images/X.png';
-import {getAuth,createUserWithEmailAndPassword} from 'firebase/auth'
+import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword} from 'firebase/auth'
 import {app} from '../../firebase';
 import { useState } from 'react';
 const { Title } = Typography;
@@ -41,6 +41,19 @@ const Auth: React.FC<Props> = (props) => {
    createUserWithEmailAndPassword(auth,email,password).then((e)=>redirect('/home')  
    ).catch(err=>{alert(err);redirect('/signup')});
   };
+
+  const handleusersignin=()=>{
+    if(email==null || password==null )
+      {
+        alert('Enter All Feild');
+        setemail("");
+        setpassword("");
+    return;
+      }
+   
+   signInWithEmailAndPassword(auth,email,password).then((e)=>redirect('/home')  
+   ).catch(err=>{alert(err);redirect('/signin')});
+  }
    
   const [email,setemail]=useState<string>("");
   const [password,setpassword]=useState<string>("");
@@ -108,7 +121,7 @@ const Auth: React.FC<Props> = (props) => {
                     <span style={{ color: 'white' }}>Having trouble logging in?</span>
                     <span style={{ cursor: 'pointer', marginLeft: '10px', color: 'rgba(79, 165, 86, 1)', fontWeight: 'bolder' }}>Contact Us</span>
                   </div>
-                  <Button  type="primary" style={{ position: 'absolute', backgroundColor: 'rgba(46, 152, 68, 1)', width: '50%', left: '25%', marginTop: '5px' }}>Continue</Button>
+                  <Button onClick={handleusersignin} type="primary" style={{ position: 'absolute', backgroundColor: 'rgba(46, 152, 68, 1)', width: '50%', left: '25%', marginTop: '5px' }}>Continue</Button>
                 </>
               )}
             </Form>

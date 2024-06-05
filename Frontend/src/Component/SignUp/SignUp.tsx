@@ -31,7 +31,7 @@ const SignUp:React.FC=()=> {
       
       <Image src={earth} style={{width:'20%',marginLeft:'20%'}}></Image>
       
-       <Form wrapperCol={{span:14}} style={{padding:'5%',position:'relative',backgroundColor:"rgba(35, 94, 74, 1)",width:"60% ",height:"88%"}} >
+       <Form wrapperCol={{span:14}} style={{padding:'5%',position:'relative',backgroundColor:"rgba(35, 94, 74, 1)",width:"60% ",height:"93%"}} >
    <Title level={4} style={{color:'white' }}>Sign Up</Title>
       
     
@@ -48,7 +48,7 @@ const SignUp:React.FC=()=> {
       
         <Button type='primary' style={{position:'absolute', backgroundColor:"rgba(46, 152, 68, 1)",width:'50%',left:'25%',marginTop:"60px",}}>Continue</Button>
              
-        <Title level={5} style={{position:'absolute',width:'50%',bottom:0,color:'white'}}>Already Member ? <NavLink to='/signin' ><span style={{cursor:'pointer',marginLeft:'10px', color:'rgba(79, 165, 86, 1)',fontWeight:'bolder'}}>   Login </span></NavLink></Title>
+        <Title level={5} style={{position:'absolute',width:'50%',bottom:15,color:'white'}}>Already Member ? <NavLink to='/signin' ><span style={{cursor:'pointer',marginLeft:'10px', color:'rgba(79, 165, 86, 1)',fontWeight:'bolder'}}>   Login </span></NavLink></Title>
        </Form>
 
       </Col>

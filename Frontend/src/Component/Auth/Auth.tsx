@@ -1,5 +1,5 @@
 import './Auth.scss';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import logo from './Images/Logo.png';
@@ -8,7 +8,12 @@ import { Form, Button, Input } from 'antd';
 import { Col, Image, Row, Layout, Typography } from 'antd';
 import Google from './Images/google.png';
 import X from './Images/X.png';
-import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword} from 'firebase/auth'
+import {getAuth,createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,GoogleAuthProvider,
+  signInWithPopup,
+
+} from 'firebase/auth'
+
 import {app} from '../../firebase';
 import { useState } from 'react';
 const { Title } = Typography;
@@ -21,6 +26,15 @@ interface Props {
 const Auth: React.FC<Props> = (props) => {
   const redirect=useNavigate();
   const auth=getAuth(app);
+  const provider=new GoogleAuthProvider();
+ 
+   const signinwithgoogle=()=>{
+    signInWithPopup(auth,provider).then((result)=>{
+      redirect('/home');
+      setuser(result.user.uid )
+    }).catch(err=>console.log(err));
+   }
+
   const handlesignupuser=(e:React.FormEvent)=>{
     e.preventDefault();
     if(email==null || password==null )
@@ -58,7 +72,8 @@ const Auth: React.FC<Props> = (props) => {
   const [email,setemail]=useState<string>("");
   const [password,setpassword]=useState<string>("");
   const [confpassword,setconfpassword]=useState<string>("");
-  
+  const [user,setuser]=useState<string>("");
+
    console.log(email)
    console.log(password)
   return (
@@ -111,7 +126,7 @@ const Auth: React.FC<Props> = (props) => {
                 <>
                   <div style={{ display: 'flex', border: '2px solid white', cursor: 'pointer', marginTop: '15px', alignItems: 'center', justifyContent: 'start' }}>
                     <img src={Google} alt="" style={{ width: 40 }} />
-                    <span style={{ marginLeft: '15px', padding: '10px 0px', fontSize: '16px', color: 'white' }}>Sign In with Google</span>
+                    <span onClick={signinwithgoogle} style={{ marginLeft: '15px', padding: '10px 0px', fontSize: '16px', color: 'white' }}>Sign In with Google</span>
                   </div>
                   <div style={{ display: 'flex', border: '2px solid white', cursor: 'pointer', marginTop: '15px', alignItems: 'center', justifyContent: 'start' }}>
                     <img src={X} alt="" style={{ width: 40 }} />

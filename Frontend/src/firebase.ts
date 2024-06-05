@@ -2,14 +2,14 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCgbMrgf_41xalmwR3Q10BiAj9U_vZzJNM",
-  authDomain: "breathe-esg-96ce3.firebaseapp.com",
-  projectId: "breathe-esg-96ce3",
-  storageBucket: "breathe-esg-96ce3.appspot.com",
-  messagingSenderId: "842763722522",
-  appId: "1:842763722522:web:916a92028f1766ed17d6a3",
-  measurementId: "G-TVLN1C98TG",
-  databaseUrl:"https://breathe-esg-96ce3-default-rtdb.firebaseio.com"
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId:process.env.REACT_APP_messagingSenderId,
+  appId:process.env.REACT_APP_appId,
+  measurementId:process.env.REACT_APP_measurementId,
+  databaseUrl:process.env.REACT_APP_databaseUrl,
 };
 
 // Initialize Firebase

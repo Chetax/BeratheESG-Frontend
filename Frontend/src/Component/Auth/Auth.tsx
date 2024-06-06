@@ -24,6 +24,7 @@ const { Title } = Typography;
 
 interface Props {
   Account: string;
+  setAuth :React.Dispatch<React.SetStateAction<Boolean>>;
 }
 
 interface UserState {
@@ -149,7 +150,7 @@ const Auth: React.FC<Props> = (props) => {
                   <Form.Item name="Conformpassword" label={<span style={{ color: 'white', marginTop: '20%' }}>Confirm Password</span>}></Form.Item>
                   <Input.Password onChange={(e)=>{setconfpassword(e.target.value)}} value={confpassword} placeholder="Confirm Your Password" style={{ height: '6vh' }}></Input.Password>
                   <Button onClick={handlesignupuser} type="primary" style={{ position: 'absolute', backgroundColor: 'rgba(46, 152, 68, 1)', width: '50%', left: '25%', marginTop: '60px' }}>Continue</Button>
-                  <Title level={5} style={{ position: 'absolute', width: '50%', bottom: 15, color: 'white' }}>Already Member? <NavLink to="/signin"><span style={{ cursor: 'pointer', marginLeft: '10px', color: 'rgba(79, 165, 86, 1)', fontWeight: 'bolder' }}>Login</span></NavLink></Title>
+                  <Title level={5} style={{ position: 'absolute', width: '50%', bottom: 15, color: 'white' }}>Already Member? <NavLink onClick={()=>props.setAuth(false)} to="/signin"><span style={{ cursor: 'pointer', marginLeft: '10px', color: 'rgba(79, 165, 86, 1)', fontWeight: 'bolder' }}>Login</span></NavLink></Title>
                 </>
               ) : (
                 <>

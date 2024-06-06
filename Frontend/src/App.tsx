@@ -4,14 +4,18 @@ import { RootState } from "./Redux/store";
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Auth from './Component/Auth/Auth';
 import Home from './Component/Home/Home';
+import Cookies from 'js-cookie';
 
 const App: React.FC = () => {
   const navigate = useNavigate();
   const username = useSelector((state: RootState) => state.user.username);
-  const [authtype, setauthtype] = useState<Boolean>(false); // Default to true to show SignIn first
+  const usernamebycookie = Cookies.get('username');
+console.log(usernamebycookie)
+
+  const [authtype, setauthtype] = useState<Boolean>(false); 
 
   useEffect(() => {
-    if (username === "") {
+    if (username === "" && usernamebycookie==="") {
       authtype ? navigate("/signin") : navigate("/signup");
     } else {
       navigate("/home");

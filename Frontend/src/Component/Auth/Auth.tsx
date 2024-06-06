@@ -10,6 +10,7 @@ import { Col, Image, Row, Layout, Typography } from 'antd';
 import Google from './Images/google.png';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { app } from '../../firebase';
+import Cookies from 'js-cookie';  // Import js-cookie
 
 const { Title } = Typography;
 
@@ -35,11 +36,13 @@ const Auth: React.FC<Props> = ({ Account, setAuth }) => {
 
   const signinwithgoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
+      const displayName = result.user.displayName ? result.user.displayName : 'Anonymous';
       const newUser = {
-        username: result.user.uid,
+        username: displayName, 
         id: result.user.uid
       };
       dispatch(setUser(newUser));
+      Cookies.set('username', newUser.username, { expires: 7 }); 
       navigate('/home');
     }).catch(err => console.log(err));
   };

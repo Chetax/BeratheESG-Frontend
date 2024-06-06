@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import Cookies from 'js-cookie'; 
 import { BsBoxes } from "react-icons/bs";
 import { CiBellOn,CiShare2 } from "react-icons/ci";
 import { MdOutlinePieChartOutline,MdDeleteOutline } from "react-icons/md";
 import { FaRegUserCircle ,FaBuilding} from "react-icons/fa";
+import { setUser } from '../../Redux/userSlice';
 import { SiGoogledocs,SiPivotaltracker } from "react-icons/si";
 import { LuMessageSquarePlus } from "react-icons/lu";
 import { LuGoal } from "react-icons/lu";
@@ -17,6 +19,7 @@ import { RootState } from "../../Redux/store"
 import {  MenuFoldOutlined,  MenuUnfoldOutlined,  BarChartOutlined,SearchOutlined} from "@ant-design/icons";
 import { Button, Layout, Card,Menu, theme, Select, Space, Table, Tag,Input } from "antd";
 import type { TableProps } from 'antd';
+import { useNavigate } from "react-router-dom";
 interface DataType {
   key: string;
   name: string;
@@ -34,11 +37,19 @@ interface TrackerData{
   complition:string;
   business:string;
 }
+interface UserState {
+  username: string;
+  id: string;
+}
 const { Header, Sider, Content } = Layout;
 const { Meta } = Card;
 const { Search } = Input;
 const Home: React.FC = () => {
   const username = useSelector((state: RootState) => state.user.username)
+  const usernamebycookie = Cookies.get('username');
+  const redirect=useNavigate();
+  const dispatch = useDispatch();
+console.log(usernamebycookie)
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [dataentry,setdataentry]=useState<boolean>(true);
@@ -238,6 +249,13 @@ const Home: React.FC = () => {
         <Menu
           theme="dark"
           mode="inline"
+          onClick={(e)=>{
+            if(e.key==="9"){
+              Cookies.set('username',"", { expires: 7 }); 
+              dispatch(setUser({ username: "", id: "" }));
+              redirect("/signup")
+            }
+          }}
           defaultSelectedKeys={["1"]}
           items={[
             {
@@ -339,11 +357,9 @@ const Home: React.FC = () => {
             <div>
               {" "}
               <CiBellOn fontSize={"20px"} />{" "}
-              <span style={{ fontSize: "18px" }}>CHETAN</span>{" "}
+              <span style={{ fontSize: "18px" }}>{usernamebycookie}</span>{" "}
               <FaRegUserCircle fontSize={"20px"} />{" "}
             </div>
-
-
           </div>
           
         </Header>

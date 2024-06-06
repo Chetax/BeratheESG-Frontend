@@ -1,30 +1,21 @@
 import './Auth.scss';
-import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import logo from './Images/Logo.png';
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../Redux/store"
-import {setUser} from '../../Redux/userSlice';
+import { useDispatch } from "react-redux";
+import { setUser } from '../../Redux/userSlice';
 import earth from './Images/Earth.png';
 import { Form, Button, Input } from 'antd';
 import { Col, Image, Row, Layout, Typography } from 'antd';
 import Google from './Images/google.png';
-import X from './Images/X.png';
-import {getAuth,createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,GoogleAuthProvider,
-  signInWithPopup,
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { app } from '../../firebase';
 
-} from 'firebase/auth'
-
-import {app} from '../../firebase';
-import { useState } from 'react';
 const { Title } = Typography;
-
 
 interface Props {
   Account: string;
-  setAuth :React.Dispatch<React.SetStateAction<Boolean>>;
+  setAuth: React.Dispatch<React.SetStateAction<Boolean>>;
 }
 
 interface UserState {
@@ -32,80 +23,77 @@ interface UserState {
   id: string;
 }
 
-const Auth: React.FC<Props> = (props) => {
-  const [user,setuser]=useState<string>("");
+const Auth: React.FC<Props> = ({ Account, setAuth }) => {
   const dispatch = useDispatch();
- 
-  const redirect=useNavigate();
-  const auth=getAuth(app);
-  const provider=new GoogleAuthProvider();
- 
-   const signinwithgoogle=()=>{
-    signInWithPopup(auth,provider).then((result)=>{
-      setuser(result.user.uid )
+  const navigate = useNavigate();
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  const [email, setemail] = useState<string>("");
+  const [password, setpassword] = useState<string>("");
+  const [confpassword, setconfpassword] = useState<string>("");
+
+  const signinwithgoogle = () => {
+    signInWithPopup(auth, provider).then((result) => {
       const newUser = {
         username: result.user.uid,
         id: result.user.uid
       };
       dispatch(setUser(newUser));
-      redirect('/home');
-    }).catch(err=>console.log(err));
-   }
+      navigate('/home');
+    }).catch(err => console.log(err));
+  };
 
-  const handlesignupuser=(e:React.FormEvent)=>{
+  const handlesignupuser = (e: React.FormEvent) => {
     e.preventDefault();
-    if(email==null || password==null )
-      {
-        alert('Enter All Feild');
-        setemail("");
-        setpassword("");
-        setconfpassword("");
-    return;
-      }
-    if(password !== confpassword ){
+    if (email === "" || password === "" || confpassword === "") {
+      alert('Enter All Fields');
+      setemail("");
+      setpassword("");
+      setconfpassword("");
+      return;
+    }
+    if (password !== confpassword) {
       alert('Password Not Match');
       setemail("");
       setpassword("");
       setconfpassword("");
       return;
     }
-   createUserWithEmailAndPassword(auth,email,password).then((result)=>{
-    const newUser = {
-      username: result.user.uid,
-      id: result.user.uid
-    };
-    dispatch(setUser(newUser));
-    redirect('/home')
-  }  
-   ).catch(err=>{alert(err);redirect('/signup')});
+    createUserWithEmailAndPassword(auth, email, password).then((result) => {
+      const newUser = {
+        username: result.user.uid,
+        id: result.user.uid
+      };
+      dispatch(setUser(newUser));
+      navigate('/home');
+    }).catch(err => {
+      alert(err);
+      navigate('/signup');
+    });
   };
 
-  const handleusersignin=()=>{
-    if(email==null || password==null )
-      {
-        alert('Enter All Feild');
-        setemail("");
-        setpassword("");
-    return;
-      }
-   
-   signInWithEmailAndPassword(auth,email,password).then((result)=>{
-    const newUser = {
-      username: result.user.uid,
-      id: result.user.uid
-    };
-    dispatch(setUser(newUser));
+  const handleusersignin = () => {
+    if (email === "" || password === "") {
+      alert('Enter All Fields');
+      setemail("");
+      setpassword("");
+      return;
+    }
 
-    redirect('/home')}  
-   ).catch(err=>{alert(err);redirect('/signin')});
-  }
-   
-  const [email,setemail]=useState<string>("");
-  const [password,setpassword]=useState<string>("");
-  const [confpassword,setconfpassword]=useState<string>("");
+    signInWithEmailAndPassword(auth, email, password).then((result) => {
+      const newUser = {
+        username: result.user.uid,
+        id: result.user.uid
+      };
+      dispatch(setUser(newUser));
+      navigate('/home');
+    }).catch(err => {
+      alert(err);
+      navigate('/signin');
+    });
+  };
 
-   console.log(email)
-   console.log(password)
   return (
     <>
       <Layout style={{ width: '100vw', height: '100vh', backgroundColor: 'rgba(33, 69, 60, 1)' }}>
@@ -131,9 +119,9 @@ const Auth: React.FC<Props> = (props) => {
             <Image src={earth} style={{ width: '18%', marginLeft: '20%' }} />
             <Form
               wrapperCol={{ span: 14 }}
-              style={{ padding: '5%', position: 'relative', backgroundColor: 'rgba(35, 94, 74, 1)', width: '60%', height: props.Account === 'SignUp' ? '93%' : '87%' }}
+              style={{ padding: '5%', position: 'relative', backgroundColor: 'rgba(35, 94, 74, 1)', width: '60%', height: Account === 'SignUp' ? '93%' : '87%' }}
             >
-              {props.Account === 'SignUp' ? (
+              {Account === 'SignUp' ? (
                 <Title level={4} style={{ color: 'white' }}>Sign Up</Title>
               ) : (
                 <>
@@ -142,15 +130,15 @@ const Auth: React.FC<Props> = (props) => {
                 </>
               )}
               <Form.Item name="email" label={<span style={{ color: 'white' }}>Email</span>} rules={[{ required: true, message: 'Please Enter Email' }]}></Form.Item>
-              <Input onChange={(e)=>{setemail(e.target.value)}} value={email}  placeholder="Enter Your Email" style={{ height: '6vh' }}></Input>
+              <Input onChange={(e) => { setemail(e.target.value) }} value={email} placeholder="Enter Your Email" style={{ height: '6vh' }}></Input>
               <Form.Item name="password" label={<span style={{ color: 'white', marginTop: '20%' }}>Password</span>}></Form.Item>
-              <Input.Password onChange={(e)=>{setpassword(e.target.value)}} value={password} placeholder="Enter Your password" style={{ height: '6vh' }}></Input.Password>
-              {props.Account === 'SignUp' ? (
+              <Input.Password onChange={(e) => { setpassword(e.target.value) }} value={password} placeholder="Enter Your password" style={{ height: '6vh' }}></Input.Password>
+              {Account === 'SignUp' ? (
                 <>
                   <Form.Item name="Conformpassword" label={<span style={{ color: 'white', marginTop: '20%' }}>Confirm Password</span>}></Form.Item>
-                  <Input.Password onChange={(e)=>{setconfpassword(e.target.value)}} value={confpassword} placeholder="Confirm Your Password" style={{ height: '6vh' }}></Input.Password>
+                  <Input.Password onChange={(e) => { setconfpassword(e.target.value) }} value={confpassword} placeholder="Confirm Your Password" style={{ height: '6vh' }}></Input.Password>
                   <Button onClick={handlesignupuser} type="primary" style={{ position: 'absolute', backgroundColor: 'rgba(46, 152, 68, 1)', width: '50%', left: '25%', marginTop: '60px' }}>Continue</Button>
-                  <Title level={5} style={{ position: 'absolute', width: '50%', bottom: 15, color: 'white' }}>Already Member? <NavLink onClick={()=>props.setAuth(false)} to="/signin"><span style={{ cursor: 'pointer', marginLeft: '10px', color: 'rgba(79, 165, 86, 1)', fontWeight: 'bolder' }}>Login</span></NavLink></Title>
+                  <Title level={5} style={{ position: 'absolute', width: '50%', bottom: 15, color: 'white' }}>Already Member? <NavLink onClick={() => setAuth(true)} to="/signin"><span style={{ cursor: 'pointer', marginLeft: '10px', color: 'rgba(79, 165, 86, 1)', fontWeight: 'bolder' }}>Login</span></NavLink></Title>
                 </>
               ) : (
                 <>

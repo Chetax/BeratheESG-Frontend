@@ -12,6 +12,8 @@ import { TbTargetArrow } from "react-icons/tb";
 import { IoAnalyticsSharp } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
 import Logo from "../Auth/Images/Logo.png";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../Redux/store"
 import {  MenuFoldOutlined,  MenuUnfoldOutlined,  BarChartOutlined,SearchOutlined} from "@ant-design/icons";
 import { Button, Layout, Card,Menu, theme, Select, Space, Table, Tag,Input } from "antd";
 import type { TableProps } from 'antd';
@@ -36,6 +38,8 @@ const { Header, Sider, Content } = Layout;
 const { Meta } = Card;
 const { Search } = Input;
 const Home: React.FC = () => {
+  const username = useSelector((state: RootState) => state.user.username)
+
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [dataentry,setdataentry]=useState<boolean>(true);
   const { token: { colorBgContainer, borderRadiusLG },} = theme.useToken();
@@ -344,6 +348,7 @@ const Home: React.FC = () => {
           
         </Header>
 
+   
         <Content style={{ marginTop:'2px',backgroundColor:'white',borderRadius: borderRadiusLG,height:"50vh"}}>
        
         <div style={{padding:"15px 0px", display:'flex',alignContent:'center',justifyContent:"space-between"}}>

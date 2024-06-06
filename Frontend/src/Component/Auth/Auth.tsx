@@ -65,10 +65,12 @@ const Auth: React.FC<Props> = ({ Account, setAuth }) => {
     }
     createUserWithEmailAndPassword(auth, email, password).then((result) => {
       const newUser = {
-        username: result.user.uid,
+        username: email,
         id: result.user.uid
       };
+      console.log(result);
       dispatch(setUser(newUser));
+      Cookies.set('username', newUser.username, { expires: 7 }); 
       navigate('/home');
     }).catch(err => {
       alert(err);
@@ -86,10 +88,11 @@ const Auth: React.FC<Props> = ({ Account, setAuth }) => {
 
     signInWithEmailAndPassword(auth, email, password).then((result) => {
       const newUser = {
-        username: result.user.uid,
+        username: email,
         id: result.user.uid
       };
       dispatch(setUser(newUser));
+      Cookies.set('username', newUser.username, { expires: 7 }); 
       navigate('/home');
     }).catch(err => {
       alert(err);

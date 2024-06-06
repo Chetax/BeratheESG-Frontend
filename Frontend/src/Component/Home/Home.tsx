@@ -102,25 +102,30 @@ const Home: React.FC = () => {
 
   const column2: TableProps<TrackerData>['columns'] = [
     {
-      title: 'MONTH',
+      title: 'MONTH ↓',
       dataIndex: 'month',
       key: 'month',
       render: (text) => <p>{text}</p>,
     },
     {
-      title: 'Status',
+      title: 'Status ↓',
       dataIndex: 'status',
       key: 'status',
-      render: (text) => <p>{text}</p>,
-    },
+      render: (text) => 
+        text === "PENDING APPROVAL (1/12)" ? 
+          <Button style={{ color:"rgba(240, 79, 109, 1)", backgroundColor: "rgba(240, 79, 109, 0.2)" }}>PENDING APPROVAL (1/12)</Button> : 
+        text === "APPROVED (2/12)" ? 
+          <Button style={{ color:"rgba(79, 165, 86, 1)", backgroundColor: "rgba(46, 152, 68, 0.2)" }}>APPROVED (2/12)</Button> : 
+          <Button style={{ color:"rgba(240, 153, 72, 1)", backgroundColor: "rgba(240, 153, 72, 0.24)" }}>INCOMPLETE (4/12)</Button>
+       },
     {
-      title: 'COMPLETION %',
+      title: 'COMPLETION % ↓',
       dataIndex: 'completion',
       key: 'completion',
       render: (text) => <p>{text}</p>,
     },
     {
-      title: 'Business Unit',
+      title: 'Business Unit ▼',
       dataIndex: 'business',
       key: 'business',
       render: (text) => <p>{text}</p>,

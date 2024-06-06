@@ -3,6 +3,9 @@ import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import logo from './Images/Logo.png';
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../Redux/store"
+import {setUser} from '../../Redux/userSlice';
 import earth from './Images/Earth.png';
 import { Form, Button, Input } from 'antd';
 import { Col, Image, Row, Layout, Typography } from 'antd';
@@ -23,15 +26,28 @@ interface Props {
   Account: string;
 }
 
+interface UserState {
+  username: string;
+  id: string;
+}
+
 const Auth: React.FC<Props> = (props) => {
+  const [user,setuser]=useState<string>("");
+  const dispatch = useDispatch();
+ 
   const redirect=useNavigate();
   const auth=getAuth(app);
   const provider=new GoogleAuthProvider();
  
    const signinwithgoogle=()=>{
     signInWithPopup(auth,provider).then((result)=>{
-      redirect('/home');
       setuser(result.user.uid )
+      const newUser = {
+        username: result.user.uid,
+        id: result.user.uid
+      };
+      dispatch(setUser(newUser));
+      redirect('/home');
     }).catch(err=>console.log(err));
    }
 
@@ -52,7 +68,14 @@ const Auth: React.FC<Props> = (props) => {
       setconfpassword("");
       return;
     }
-   createUserWithEmailAndPassword(auth,email,password).then((e)=>redirect('/home')  
+   createUserWithEmailAndPassword(auth,email,password).then((result)=>{
+    const newUser = {
+      username: result.user.uid,
+      id: result.user.uid
+    };
+    dispatch(setUser(newUser));
+    redirect('/home')
+  }  
    ).catch(err=>{alert(err);redirect('/signup')});
   };
 
@@ -65,14 +88,20 @@ const Auth: React.FC<Props> = (props) => {
     return;
       }
    
-   signInWithEmailAndPassword(auth,email,password).then((e)=>redirect('/home')  
+   signInWithEmailAndPassword(auth,email,password).then((result)=>{
+    const newUser = {
+      username: result.user.uid,
+      id: result.user.uid
+    };
+    dispatch(setUser(newUser));
+
+    redirect('/home')}  
    ).catch(err=>{alert(err);redirect('/signin')});
   }
    
   const [email,setemail]=useState<string>("");
   const [password,setpassword]=useState<string>("");
   const [confpassword,setconfpassword]=useState<string>("");
-  const [user,setuser]=useState<string>("");
 
    console.log(email)
    console.log(password)

@@ -1,0 +1,35 @@
+
+.imgform{
+    margin-left: 20%;
+}
+
+@media screen and (max-width: 992px) {
+    .Form {
+      margin-left: 24%;
+    }
+    
+    .imgform {
+      margin-left: 45vw;
+    }
+  
+    .center-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .topcol{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .secondcol{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .paragrp{
+        text-align: center;
+    }
+  }
+  

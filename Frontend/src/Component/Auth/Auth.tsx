@@ -102,30 +102,33 @@ const Auth: React.FC<Props> = ({ Account, setAuth }) => {
 
   return (
     <>
-      <Layout style={{ width: '100vw', height: '100vh', backgroundColor: 'rgba(33, 69, 60, 1)' }}>
-        <Row>
-          <Col span={12} style={{ marginTop: '35vh' }}>
-            <Row>
-              <Col span={10}></Col>
-              <Col span={10}>
-                <div>
-                  <Title level={5} style={{ color: 'rgba(255, 255, 255, 1)' }}>Welcome to</Title>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyItems: 'center' }}>
-                    <Image width={30} src={logo} />
-                    <Title level={2} style={{ color: 'rgba(255, 255, 255, 1)', marginTop: '8px', letterSpacing: '5px' }}>BREATHE ESG</Title>
-                  </div>
-                  <Title level={5} style={{ color: 'rgba(159, 159, 159, 1)', marginBottom: '50px' }}>We help you track your organisation's metrics as per the ESG Guidelines</Title>
-                  <span style={{ color: 'rgba(255, 255, 255, 1)' }}>Sounds Interesting?</span>
-                  <span style={{ color: 'rgba(79, 165, 86, 1)', cursor: 'pointer' }}>Get in touch!</span>
-                </div>
-              </Col>
-            </Row>
-          </Col>
-          <Col span={10} style={{ marginTop: '4vh' }}>
-            <Image src={earth} style={{ width: '18%', marginLeft: '20%' }} />
+      <Layout style={{  backgroundColor: 'rgba(33, 69, 60, 1)' }}>
+        <Row style={{paddingBottom:"90px"}}>
+        <Col className='topcol' lg={12} xs={24} sm={24} md={24} style={{ marginTop: '35vh', }}>
+  <Row>
+    <Col span={10}></Col>
+    <Col md={24} xs={24} sm={24} lg={12} style={{  }}>
+      <div  className='secondcol'>
+        <Title level={5} style={{ color: 'rgba(255, 255, 255, 1)' }}>Welcome to</Title>
+        <div style={{ display: 'flex', alignItems: 'center', justifyItems: 'center' }}>
+          <Image width={30} src={logo} />
+          <Title level={2} style={{ color: 'rgba(255, 255, 255, 1)', marginTop: '8px', letterSpacing: '5px' }}>BREATHE ESG</Title>
+        </div>
+        <Title className='paragrp' level={5} style={{ color: 'rgba(159, 159, 159, 1)', marginBottom: '50px' }}>We help you track your organisation's metrics as per the ESG Guidelines</Title>
+        <span style={{ color: 'rgba(255, 255, 255, 1)' }}>Sounds Interesting?</span>
+        <span style={{ color: 'rgba(79, 165, 86, 1)', cursor: 'pointer' }}>Get in touch!</span>
+      </div>
+    </Col>
+  </Row>
+</Col>
+
+
+          <Col lg={10} md={24} style={{ marginTop: '4vh' }}>
+            <Image src={earth} className='imgform' style={{ width: '18%' }} />
             <Form
+              className='Form'
               wrapperCol={{ span: 14 }}
-              style={{ padding: '5%', position: 'relative', backgroundColor: 'rgba(35, 94, 74, 1)', width: '60%', height: Account === 'SignUp' ? '93%' : '87%' }}
+              style={{ padding: '5%', position: 'relative', backgroundColor: 'rgba(35, 94, 74, 1)', width: '60%', height: Account === 'SignUp' ? '82%' : '87%'  }}
             >
               {Account === 'SignUp' ? (
                 <Title level={4} style={{ color: 'white' }}>Sign Up</Title>
@@ -143,8 +146,11 @@ const Auth: React.FC<Props> = ({ Account, setAuth }) => {
                 <>
                   <Form.Item name="Conformpassword" label={<span style={{ color: 'white', marginTop: '20%' }}>Confirm Password</span>}></Form.Item>
                   <Input.Password onChange={(e) => { setconfpassword(e.target.value) }} value={confpassword} placeholder="Confirm Your Password" style={{ height: '6vh' }}></Input.Password>
-                  <Button onClick={handlesignupuser} type="primary" style={{ position: 'absolute', backgroundColor: 'rgba(46, 152, 68, 1)', width: '50%', left: '25%', marginTop: '60px' }}>Continue</Button>
-                  <Title level={5} style={{ position: 'absolute', width: '50%', bottom: 15, color: 'white' }}>Already Member? <NavLink onClick={() => setAuth(true)} to="/signin"><span style={{ cursor: 'pointer', marginLeft: '10px', color: 'rgba(79, 165, 86, 1)', fontWeight: 'bolder' }}>Login</span></NavLink></Title>
+                  <Button onClick={handlesignupuser} type="primary" style={{  backgroundColor: 'rgba(46, 152, 68, 1)', width: '50%', left: '25%', margin: '20px 0px' }}>Continue</Button>
+             
+                  <Title level={5} style={{  bottom: 2, color: 'white' }}>Already Member? <NavLink onClick={() => setAuth(true)} to="/signin"><span style={{ cursor: 'pointer', marginLeft: '10px', color: 'rgba(79, 165, 86, 1)', fontWeight: 'bolder' }}>Login</span></NavLink></Title>
+              
+              
                 </>
               ) : (
                 <>

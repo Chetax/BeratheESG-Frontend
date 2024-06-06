@@ -45,7 +45,6 @@ const { Header, Sider, Content } = Layout;
 const { Meta } = Card;
 const { Search } = Input;
 const Home: React.FC = () => {
-  const username = useSelector((state: RootState) => state.user.username)
   const usernamebycookie = Cookies.get('username');
   const redirect=useNavigate();
   const dispatch = useDispatch();

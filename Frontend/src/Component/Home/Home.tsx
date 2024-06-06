@@ -97,24 +97,25 @@ const Home: React.FC = () => {
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
             style={{
-              fontSize: '6px',
+              fontSize: '10px',
+              marginTop:'5px',
               width: 50,
               height: 50,
             }}
           />
 <div 
-style={{display:'flex',width:"100%",alignItems:'center',  justifyContent:'space-between'}}>
-<div>      
+style={{display:'flex',width:"90%",alignItems:'center',  justifyContent:'space-between'}}>
+<div style={{padding:"0px 35px"}}>      
         <span><img src={Logo} style={{width:20 }} alt="" />View Name : </span>
           <Space wrap>
     <Select
       defaultValue="North India Region"
       style={{ width: 120 }}
       options={[
-        { value: 'jack', label: 'Jack' },
-        { value: 'lucy', label: 'Lucy' },
-        { value: 'Yiminghe', label: 'yiminghe' },
-        { value: 'disabled', label: 'Disabled', disabled: true },
+        { value: 'South India Region', label: 'South India Region' },
+        { value: 'North India Region', label: 'North India Region' },
+        { value: 'East India Region', label: 'East India Region' },
+        { value: 'West India Region', label: 'West India Region' },
       ]}
     />
   </Space></div>

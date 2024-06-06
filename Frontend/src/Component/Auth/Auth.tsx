@@ -124,15 +124,11 @@ const Auth: React.FC<Props> = (props) => {
                 </>
               ) : (
                 <>
-                  <div style={{ display: 'flex', border: '2px solid white', cursor: 'pointer', marginTop: '15px', alignItems: 'center', justifyContent: 'start' }}>
+                  <div style={{ display: 'flex', border: '2px solid white', cursor: 'pointer', margin: '20px 0px', alignItems: 'center', justifyContent: 'start' }}>
                     <img src={Google} alt="" style={{ width: 40 }} />
                     <span onClick={signinwithgoogle} style={{ marginLeft: '15px', padding: '10px 0px', fontSize: '16px', color: 'white' }}>Sign In with Google</span>
                   </div>
-                  <div style={{ display: 'flex', border: '2px solid white', cursor: 'pointer', marginTop: '15px', alignItems: 'center', justifyContent: 'start' }}>
-                    <img src={X} alt="" style={{ width: 40 }} />
-                    <span style={{ marginLeft: '15px', padding: '10px 0px', fontSize: '16px', color: 'white' }}>Sign In with X</span>
-                  </div>
-                  <div style={{ marginTop: '5px' }}>
+                  <div style={{ margin: '10px 0px' }}>
                     <span style={{ color: 'white' }}>Having trouble logging in?</span>
                     <span style={{ cursor: 'pointer', marginLeft: '10px', color: 'rgba(79, 165, 86, 1)', fontWeight: 'bolder' }}>Contact Us</span>
                   </div>

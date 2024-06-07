@@ -8,7 +8,7 @@ This repository contains the frontend code for the BeratheESG application. It is
 - TypeScript
 - SCSS
 - Ant Design (AntD)
-
+- Firebase Auth
 ## Installation Steps
 
 Follow these steps to set up the project locally:
@@ -22,14 +22,14 @@ Follow these steps to set up the project locally:
    ```bash
       npm install
    
-3. **Environment Setup**
+3. **Environment Setup(Your Firebase Config)**
    ```bash
-     REACT_APP_FIREBASE_API_KEY=your_api_key
-     REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
-     REACT_APP_FIREBASE_PROJECT_ID=your_project_id
-     REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-     REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
-     REACT_APP_FIREBASE_APP_ID=your_app_id
+     REACT_APPE_API_KEY=your_api_key
+     REACT_APPE_AUTH_DOMAIN=your_auth_domain
+     REACT_APPE_PROJECT_ID=your_project_id
+     REACT_APPE_STORAGE_BUCKET=your_storage_bucket
+     REACT_APPE_MESSAGING_SENDER_ID=your_messaging_sender_id
+     REACT_APPE_APP_ID=your_app_id
    
 4. **Start the Development Server**
    ```bash
